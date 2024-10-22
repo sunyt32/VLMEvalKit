@@ -7,9 +7,11 @@ class COCO_Caption_Scorer():
         from pycocoevalcap.bleu.bleu import Bleu
         from pycocoevalcap.rouge.rouge import Rouge
         from pycocoevalcap.cider.cider import Cider
+        from pycocoevalcap.tokenizer.ptbtokenizer import PTBTokenizer
 
-        self.ref = ref
-        self.gt = gt
+        ptb_tokenizer = PTBTokenizer()
+        self.ref = ptb_tokenizer.tokenize(ref)
+        self.gt = ptb_tokenizer.tokenize(gt)
         print('setting up scorers...')
         self.scorers = [
             (Bleu(4), ['Bleu_1', 'Bleu_2', 'Bleu_3', 'Bleu_4']),
@@ -65,8 +67,8 @@ class ImageCaptionDataset(ImageBaseDataset):
         lines = [data.iloc[i] for i in range(lt)]
         ref, gt = {}, {}
         for i, line in enumerate(lines):
-            ref[str(i)] = [str(line['prediction'])]
-            gt[str(i)] = eval(line['answer'])
+            ref[str(i)] = [{"caption": str(line['prediction']).strip().lower()}]
+            gt[str(i)] = [{"caption": sentence.strip().lower()} for sentence in eval(line['answer'])]
 
         scorer = COCO_Caption_Scorer(ref, gt)
         coco_caption_score_dict = scorer.compute_scores()
