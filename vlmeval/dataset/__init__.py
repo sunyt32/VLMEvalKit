@@ -11,6 +11,7 @@ from .image_vqa import (
     ImageVQADataset, MathVision, OCRBench, MathVista, LLaVABench, MMVet, MTVQADataset, TableVQABench,
     CustomVQADataset, CRPE, MathVerse
 )
+from .image_vqav2 import VQAV2Dataset
 
 from .vcr import VCRDataset
 from .mmlongbench import MMLongBench
@@ -115,7 +116,8 @@ IMAGE_DATASET = [
     ImageCaptionDataset, ImageYORNDataset, ImageMCQDataset, ImageVQADataset, MathVision,
     MMMUDataset, OCRBench, MathVista, LLaVABench, MMVet, MTVQADataset, TableVQABench,
     MMLongBench, VCRDataset, MMDUDataset, DUDE, SlideVQA, MUIRDataset,
-    GMAIMMBenchDataset, MMERealWorld, HRBenchDataset, CRPE, MathVerse
+    GMAIMMBenchDataset, MMERealWorld, HRBenchDataset, CRPE, MathVerse,
+    VQAV2Dataset
 ]
 
 VIDEO_DATASET = [
